@@ -12,3 +12,5 @@ spring:
       max-active: 100
   jpa:
     show-sql: true
+    hibernate:
+      ddl-auto: update
