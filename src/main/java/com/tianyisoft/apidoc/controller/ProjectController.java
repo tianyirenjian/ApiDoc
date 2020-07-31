@@ -2,16 +2,11 @@ package com.tianyisoft.apidoc.controller;
 
 import com.tianyisoft.apidoc.domain.Project;
 import com.tianyisoft.apidoc.service.ProjectService;
-import org.springframework.cache.annotation.CacheEvict;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.io.Serializable;
@@ -26,13 +21,11 @@ public class ProjectController {
         this.projectService = projectService;
     }
 
-    @Cacheable("projects")
     @GetMapping("/projects")
     public List<Project> index() {
         return projectService.findAll();
     }
 
-    @CacheEvict(value = "projects", allEntries = true)
     @PostMapping("/projects")
     public ResponseEntity<? extends Serializable> store(@RequestBody @Valid Project project, BindingResult bindingResult) {
         HashMap<String, String> map = new HashMap<>();
