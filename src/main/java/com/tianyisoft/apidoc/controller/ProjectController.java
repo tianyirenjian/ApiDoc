@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.io.Serializable;
@@ -41,5 +42,16 @@ public class ProjectController {
             return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(projectService.save(project), HttpStatus.OK);
+    }
+
+    @GetMapping("/projects/{project}")
+    public Project show(@PathVariable("project") int project) {
+        Project project1 = projectService.find(project);
+        if (project1 == null) {
+            throw new ResponseStatusException(
+                    HttpStatus.NOT_FOUND, "项目不存在"
+            );
+        }
+        return project1;
     }
 }

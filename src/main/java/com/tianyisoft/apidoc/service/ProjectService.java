@@ -30,4 +30,9 @@ public class ProjectService {
     public Project findBySlug(String slug) {
         return projectRepository.findBySlug(slug);
     }
+
+    @Cacheable("project")
+    public Project find(int id) {
+        return projectRepository.findById(id).orElse(null);
+    }
 }
