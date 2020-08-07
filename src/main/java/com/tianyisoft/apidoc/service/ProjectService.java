@@ -39,4 +39,9 @@ public class ProjectService {
     public Project find(int id) {
         return projectRepository.findById(id).orElse(null);
     }
+
+    @CacheEvict(value = {"project", "projects"}, allEntries = true)
+    public void destroy(int id) {
+        projectRepository.deleteById(id);
+    }
 }

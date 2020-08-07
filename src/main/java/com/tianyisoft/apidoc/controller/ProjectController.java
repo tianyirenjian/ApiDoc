@@ -84,4 +84,9 @@ public class ProjectController {
         project.setId(id);
         return new ResponseEntity<>(projectService.save(project), HttpStatus.OK);
     }
+
+    @DeleteMapping("/projects/{project}")
+    public void destroy(@PathVariable("project") int project) {
+        projectService.destroy(project);
+    }
 }
