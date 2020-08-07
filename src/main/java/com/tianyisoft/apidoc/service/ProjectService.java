@@ -31,6 +31,10 @@ public class ProjectService {
         return projectRepository.findBySlug(slug);
     }
 
+    public Project findBySlugIgnoreId(String slug, int id) {
+        return projectRepository.findBySlugIgnoreId(slug, id);
+    }
+
     @Cacheable("project")
     public Project find(int id) {
         return projectRepository.findById(id).orElse(null);
