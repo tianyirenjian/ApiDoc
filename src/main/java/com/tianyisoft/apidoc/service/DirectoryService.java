@@ -17,4 +17,13 @@ public class DirectoryService {
     public List<Directory> findAll(int project) {
         return directoryRepository.findByProjectIdAndParentId(project, null);
     }
+
+    public Directory save(int project, Directory directory) {
+        directory.setProjectId(project);
+        return directoryRepository.save(directory);
+    }
+
+    public Directory find(int project, int id) {
+        return directoryRepository.findByIdAndProjectId(id, project).orElse(null);
+    }
 }

@@ -20,7 +20,6 @@ public class Directory extends AuditAble implements Serializable {
     @NotBlank
     private String name;
     private Integer sort = 0;
-    @NotBlank
     private Integer projectId;
     private Integer parentId;
 

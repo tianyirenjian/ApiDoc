@@ -18,7 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
-public class ProjectController {
+public class ProjectController extends BaseController {
     private final ProjectService projectService;
     private ObjectError error;
 
@@ -45,21 +45,11 @@ public class ProjectController {
         return new ResponseEntity<>(projectService.save(project), HttpStatus.OK);
     }
 
-    private ResponseEntity<? extends Serializable> getErrors(HashMap<String, String> map, BindingResult bindingResult) {
-        for (ObjectError error: bindingResult.getAllErrors()) {
-            map.put("message", ((FieldError)error).getField() + " " +  error.getDefaultMessage());
-            return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
-        }
-        return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
-    }
-
     @GetMapping("/projects/{project}")
     public Project show(@PathVariable("project") int project) {
         Project project1 = projectService.find(project);
         if (project1 == null) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "项目不存在"
-            );
+            throw404("项目不存在");
         }
         return project1;
     }
@@ -68,9 +58,7 @@ public class ProjectController {
     public ResponseEntity<?> update(@PathVariable("id") int id, @RequestBody @Valid Project project, BindingResult bindingResult) {
         Project project1 = projectService.find(id);
         if (project1 == null) {
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "项目不存在"
-            );
+            throw404("项目不存在");
         }
         HashMap<String, String> map = new HashMap<>();
         if (bindingResult.hasErrors()) {
