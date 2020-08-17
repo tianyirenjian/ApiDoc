@@ -40,7 +40,8 @@ public class DirectoryController extends BaseController {
         if (projectService.find(project) == null) {
             throw404("项目不存在");
         }
-        return new ResponseEntity<>(directoryService.save(project, directory), HttpStatus.OK);
+        directory.setProjectId(project);
+        return new ResponseEntity<>(directoryService.save(directory), HttpStatus.OK);
     }
 
     @GetMapping("/projects/{project}/directories/{directory}")
@@ -50,5 +51,25 @@ public class DirectoryController extends BaseController {
             throw404("目录不存在");
         }
         return directory1;
+    }
+
+    @PutMapping("/projects/{project}/directories/{directory}")
+    public ResponseEntity<?> update(@PathVariable("project") int project,
+                                    @PathVariable("directory") int id,
+                                    @RequestBody @Valid Directory directory,
+                                    BindingResult bindingResult) {
+
+        if (directoryService.find(project, id)== null) {
+            throw404("目录不存在");
+        }
+        HashMap<String, String> map = new HashMap<>();
+        if (bindingResult.hasErrors()) {
+            return getErrors(map, bindingResult);
+        }
+        directory.setId(id);
+        if (directory.getProjectId() == null) {
+            directory.setProjectId(project);
+        }
+        return new ResponseEntity<>(directoryService.save(directory), HttpStatus.OK);
     }
 }

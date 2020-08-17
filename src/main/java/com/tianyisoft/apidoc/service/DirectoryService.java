@@ -18,8 +18,7 @@ public class DirectoryService {
         return directoryRepository.findByProjectIdAndParentId(project, null);
     }
 
-    public Directory save(int project, Directory directory) {
-        directory.setProjectId(project);
+    public Directory save(Directory directory) {
         return directoryRepository.save(directory);
     }
 

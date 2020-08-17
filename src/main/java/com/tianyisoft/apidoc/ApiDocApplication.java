@@ -1,5 +1,6 @@
 package com.tianyisoft.apidoc;
 
+import com.tianyisoft.apidoc.aspect.SaveDirectory;
 import com.tianyisoft.apidoc.aspect.SaveProject;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -14,6 +15,11 @@ public class ApiDocApplication {
 	@Bean
 	public SaveProject saveProject() {
 		return new SaveProject();
+	}
+
+	@Bean
+	public SaveDirectory saveDirectory() {
+		return new SaveDirectory();
 	}
 
 	public static void main(String[] args) {
