@@ -22,9 +22,12 @@ public class SaveProject {
     @Around("pointCut()")
     public Object around(ProceedingJoinPoint pjp) throws Throwable {
         Object[] args = pjp.getArgs();
-        int id = ((Project)args[0]).getId();
-        Project old = projectRepository.findById(id).orElse(new Project());
-        ((Project)args[0]).setCreatedAt(old.getCreatedAt());
+        try {
+            int id = ((Project)args[0]).getId();
+            Project old = projectRepository.findById(id).orElse(new Project());
+            ((Project)args[0]).setCreatedAt(old.getCreatedAt());
+        } catch (Throwable ignored) {
+        }
         return pjp.proceed(args);
     }
 }
