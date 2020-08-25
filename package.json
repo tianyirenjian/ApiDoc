@@ -1,0 +1,35 @@
+{
+  "name": "ApiDoc",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "dependencies": {
+    "tailwindcss": "^1.7.3",
+    "vue-router": "^3.4.3"
+  },
+  "devDependencies": {
+    "autoprefixer": "^9.8.6",
+    "css-loader": "^4.2.2",
+    "mini-css-extract-plugin": "^0.10.0",
+    "postcss-loader": "^3.0.0",
+    "style-loader": "^1.2.1",
+    "vue": "^2.6.12",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tianyirenjian/ApiDoc.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tianyirenjian/ApiDoc/issues"
+  },
+  "homepage": "https://github.com/tianyirenjian/ApiDoc#readme"
+}
