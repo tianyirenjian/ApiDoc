@@ -28,4 +28,5 @@ public class Project extends AuditAble implements Serializable {
     private String slug;
     private Boolean open;
     private String password;
+    private Integer userId;
 }

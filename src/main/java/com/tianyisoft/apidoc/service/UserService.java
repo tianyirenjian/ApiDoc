@@ -39,6 +39,10 @@ public class UserService {
         return StringUtils.EMPTY;
     }
 
+    public User findByName(String name) {
+        return userRepository.findByName(name);
+    }
+
     public Optional<User> findByToken(String token) {
         return userRepository.findByToken(token);
     }

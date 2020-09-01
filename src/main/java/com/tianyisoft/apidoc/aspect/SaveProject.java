@@ -26,6 +26,7 @@ public class SaveProject {
             int id = ((Project)args[0]).getId();
             Project old = projectRepository.findById(id).orElse(new Project());
             ((Project)args[0]).setCreatedAt(old.getCreatedAt());
+            ((Project)args[0]).setUserId(old.getUserId());
         } catch (Throwable ignored) {
         }
         return pjp.proceed(args);

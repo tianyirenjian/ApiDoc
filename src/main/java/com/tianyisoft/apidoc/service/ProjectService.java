@@ -22,7 +22,7 @@ public class ProjectService {
         return projectRepository.findAll();
     }
 
-    @CacheEvict(value = "projects", allEntries = true)
+    @CacheEvict(value = {"project", "projects"}, allEntries = true)
     public Project save(Project project) {
         return projectRepository.save(project);
     }
@@ -38,6 +38,10 @@ public class ProjectService {
     @Cacheable("project")
     public Project find(int id) {
         return projectRepository.findById(id).orElse(null);
+    }
+
+    public List<Project> findAllByUserId(Integer id) {
+        return projectRepository.findAllByUserId(id);
     }
 
     @CacheEvict(value = {"project", "projects"}, allEntries = true)

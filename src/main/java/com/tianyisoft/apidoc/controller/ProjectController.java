@@ -1,11 +1,12 @@
 package com.tianyisoft.apidoc.controller;
 
 import com.tianyisoft.apidoc.domain.Project;
+import com.tianyisoft.apidoc.domain.User;
+import com.tianyisoft.apidoc.enums.Roles;
 import com.tianyisoft.apidoc.service.ProjectService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -17,7 +18,6 @@ import java.util.List;
 @RequestMapping("/api")
 public class ProjectController extends BaseController {
     private final ProjectService projectService;
-    private ObjectError error;
 
     public ProjectController(ProjectService projectService) {
         this.projectService = projectService;
@@ -25,7 +25,11 @@ public class ProjectController extends BaseController {
 
     @GetMapping("/projects")
     public List<Project> index() {
-        return projectService.findAll();
+        User principle = getPrinciple();
+        if (principle.getAuthorities().contains(Roles.ADMIN)) {
+            return projectService.findAll();
+        }
+        return projectService.findAllByUserId(principle.getId());
     }
 
     @PostMapping("/projects")
@@ -39,6 +43,7 @@ public class ProjectController extends BaseController {
             map.put("message", "slug 已被占用");
             return new ResponseEntity<>(map, HttpStatus.BAD_REQUEST);
         }
+        project.setUserId(getPrinciple().getId());
         return new ResponseEntity<>(projectService.save(project), HttpStatus.OK);
     }
 
@@ -48,7 +53,12 @@ public class ProjectController extends BaseController {
         if (project1 == null) {
             throw404("项目不存在");
         }
-        return project1;
+        User user = getPrinciple();
+        if (user.getAuthorities().contains(Roles.ADMIN) || project1.getUserId().equals(user.getId())) {
+            return project1;
+        }
+        throw403();
+        return null;
     }
 
     @PutMapping("/projects/{id}")
@@ -57,6 +67,7 @@ public class ProjectController extends BaseController {
         if (project1 == null) {
             throw404("项目不存在");
         }
+        checkPermission(project1);
         HashMap<String, String> map = new HashMap<>();
         if (bindingResult.hasErrors()) {
             return getErrors(map, bindingResult);
@@ -72,6 +83,18 @@ public class ProjectController extends BaseController {
 
     @DeleteMapping("/projects/{project}")
     public void destroy(@PathVariable("project") int project) {
+        Project project1 = projectService.find(project);
+        if (project1 == null) {
+            throw404("项目不存在");
+        }
+        checkPermission(project1);
         projectService.destroy(project);
+    }
+
+    private void checkPermission(Project project) {
+        User user = getPrinciple();
+        if (!(user.getAuthorities().contains(Roles.ADMIN) || project.getUserId().equals(user.getId()))) {
+            throw403();
+        }
     }
 }
