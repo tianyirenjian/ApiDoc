@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.List;
 
 @RestController
+@RequestMapping("/api")
 public class DirectoryController extends BaseController {
     private final DirectoryService directoryService;
     private final ProjectService projectService;
