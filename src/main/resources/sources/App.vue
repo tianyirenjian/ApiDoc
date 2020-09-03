@@ -3,7 +3,7 @@
     <v-app-bar
         app
     >
-      <v-app-bar-nav-icon @click="drawer = true"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon @click="drawer = true" v-if="showDrawer"></v-app-bar-nav-icon>
       <v-toolbar-title>文档中心</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-switch
@@ -41,7 +41,7 @@
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
-    <v-main>
+    <v-main app>
       <v-container fluid>
         <router-view></router-view>
       </v-container>
@@ -57,6 +57,11 @@ export default {
     return {
       drawer: false,
       group: 1
+    }
+  },
+  computed: {
+    showDrawer() {
+      return this.$route.name === 'project';
     }
   }
 }

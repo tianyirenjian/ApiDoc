@@ -1,35 +1,45 @@
 <template>
-<div>
-  hello
-  <v-btn class="mx-2" fab dark small color="primary">
-    <v-icon dark>mdi-minus</v-icon>
-  </v-btn>
+  <v-row>
+    <v-col cols="12">
+      <v-row
+          align="start"
+          justify="center"
+      >
+        <v-card
+            :hover="hover"
+            max-width="344"
+            class="ma-5"
+            v-for="i in 15"
+            v-bind:key="i"
+        >
+          <v-card-title>Hello world {{ i }}.</v-card-title>
 
-  <v-btn class="mx-2" fab dark small color="pink">
-    <v-icon dark>mdi-heart</v-icon>
-  </v-btn>
+          <v-card-text>
+            Visit ten places on our planet that are undergoing the biggest changes today.
+          </v-card-text>
 
-  <v-btn class="mx-2" fab dark color="indigo">
-    <v-icon dark>mdi-plus</v-icon>
-  </v-btn>
-
-  <v-btn class="mx-2" fab dark color="teal">
-    <v-icon dark>mdi-format-list-bulleted-square</v-icon>
-  </v-btn>
-
-  <v-btn class="mx-2" fab dark large color="cyan">
-    <v-icon dark>mdi-pencil</v-icon>
-  </v-btn>
-
-  <v-btn class="mx-2" fab dark large color="purple">
-    <v-icon dark>mdi-android</v-icon>
-  </v-btn>
-</div>
+          <v-card-actions>
+            <v-btn icon color="blue">
+              <v-icon>mdi-cog</v-icon>
+            </v-btn>
+            <v-btn icon color="red">
+              <v-icon>mdi-lock</v-icon>
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-row>
+    </v-col>
+  </v-row>
 </template>
 
 <script>
 export default {
-  name: "Projects.vue"
+  name: "Projects.vue",
+  data() {
+    return {
+      hover: true
+    }
+  }
 }
 </script>
 
