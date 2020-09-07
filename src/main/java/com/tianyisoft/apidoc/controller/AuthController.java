@@ -2,7 +2,6 @@ package com.tianyisoft.apidoc.controller;
 
 import com.tianyisoft.apidoc.service.UserService;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;

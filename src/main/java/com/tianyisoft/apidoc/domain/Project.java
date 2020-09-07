@@ -1,5 +1,6 @@
 package com.tianyisoft.apidoc.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.tianyisoft.apidoc.validators.requiredIf.RequiredIf;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -27,6 +28,7 @@ public class Project extends AuditAble implements Serializable {
     @NotBlank
     private String slug;
     private Boolean open;
+    @JsonIgnore
     private String password;
     private Integer userId;
 }
