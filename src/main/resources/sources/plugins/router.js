@@ -1,10 +1,10 @@
 import Vue from 'vue'
-import store from 'root/plugins/store'
+import store from '//plugins/store'
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
 
-const Login = () => import('root/pages/Login.vue')
-const Projects = () => import('root/pages/Projects.vue')
+const Login = () => import('//pages/Login')
+const Projects = () => import('//pages/Projects')
 const Baz = {template: "<div>baz</div>"};
 
 const routes = [

@@ -29,15 +29,8 @@ module.exports = {
                             publicPath: distPath
                         }
                     },
+                    // 'style-loader', // 如果 dev server 要使用 css， 则注释上面，并放开这一行 // 也可能不需要
                     'css-loader',
-                    {
-                        loader: 'postcss-loader', options: {
-                            ident: 'postcss',
-                            plugins: [
-                                require('autoprefixer')
-                            ]
-                        }
-                    },
                 ],
             }, {
                 test: /\.vue$/,
@@ -48,7 +41,18 @@ module.exports = {
     resolve: {
         alias: {
             vue: 'vue/dist/vue.js',
-            'root': path.resolve('./src/main/resources/sources')
-        }
-    }
+            '/': path.resolve('./src/main/resources/sources/'),
+        },
+        extensions: ['.js', '.vue']
+    },
+    devServer: {
+        port: 8099,
+        progress: true,
+        contentBase: "./src/main/resources/static"
+    },
+    watchOptions: {
+        poll: 1000,
+        aggregateTimeout: 500,
+        ignored: "./node_modules/"
+    },
 }
