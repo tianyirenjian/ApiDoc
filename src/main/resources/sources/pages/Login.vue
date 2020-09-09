@@ -25,6 +25,7 @@
                 name="login"
                 prepend-icon="mdi-account"
                 type="text"
+                v-model="form.username"
             ></v-text-field>
 
             <v-text-field
@@ -33,12 +34,13 @@
                 name="password"
                 prepend-icon="mdi-lock"
                 type="password"
+                v-model="form.password"
             ></v-text-field>
           </v-form>
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="primary">
+          <v-btn color="primary" @click="login">
             <v-icon left>mdi-key</v-icon>
             Login
           </v-btn>
@@ -49,7 +51,21 @@
 </template>
 
 <script>
+import config from '//variables'
 export default {
   name: "Login",
+  data() {
+    return {
+      form: {
+        username: '',
+        password: '',
+      }
+    }
+  },
+  methods: {
+    login() {
+      this.$http.post(config.api_host, this.form)
+    }
+  }
 }
 </script>

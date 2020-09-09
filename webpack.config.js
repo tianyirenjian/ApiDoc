@@ -21,7 +21,7 @@ module.exports = {
     module: {
         rules: [
             {
-                test: /\.css$/,
+                test: /\.(c|sa|sc)ss$/,
                 use: [
                     {
                         loader: MiniCssExtractPlugin.loader,
@@ -31,6 +31,7 @@ module.exports = {
                     },
                     // 'style-loader', // 如果 dev server 要使用 css， 则注释上面，并放开这一行 // 也可能不需要
                     'css-loader',
+                    'sass-loader',
                 ],
             }, {
                 test: /\.vue$/,
