@@ -52,6 +52,7 @@
 
 <script>
 import config from '//variables'
+import store from '//plugins/store'
 export default {
   name: "Login",
   data() {
@@ -64,7 +65,13 @@ export default {
   },
   methods: {
     login() {
-      this.$http.post(config.api_host, this.form)
+      this.$http.post(config.api_host + 'token', this.form).then((data) => {
+        let token = data.data.token;
+        store.setToken(token)
+        this.$notification.success("登录成功!")
+        let redirect = this.$router.currentRoute.query.redirect || "/";
+        this.$router.push(redirect)
+      }).catch(() => {})
     }
   }
 }

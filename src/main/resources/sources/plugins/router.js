@@ -33,12 +33,15 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
     if (to.meta.requireLogin) {
-        console.log(store.state.token)
-        store.setToken('qwerty')
-        next({
-            path: "/login",
-            query: {redirect: to.fullPath}
-        })
+        let token = store.state.token
+        if (!token) {
+            next({
+                path: "/login",
+                query: {redirect: to.fullPath}
+            })
+        } else {
+            next()
+        }
     } else {
         next()
     }

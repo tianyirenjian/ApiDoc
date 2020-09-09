@@ -1,4 +1,4 @@
-import store from 'root/plugins/store'
+import store from '//plugins/store'
 
 export default {
     data() {

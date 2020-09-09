@@ -1,6 +1,7 @@
 import axios from 'axios'
 import store from '//plugins/store'
 import router from "//plugins/router";
+import alertify from 'alertifyjs'
 
 const instance = axios.create({
     timeout: 10000,
@@ -27,21 +28,24 @@ instance.interceptors.response.use(
                 case 401:
                     // 返回 401 (未授权) 清除 token 并跳转到登录页面
                     store.setToken(null)
-                    router.replace({
-                        path: '/login',
-                        query: {
-                            redirect: router.currentRoute.fullPath
-                        }
-                    })
+                    alertify.error('用户名或密码错误。')
+                    if (router.currentRoute.name !== 'login') {
+                        router.replace({
+                            path: '/login',
+                            query: {
+                                redirect: router.currentRoute.fullPath
+                            }
+                        })
+                    }
                     break
                 case 400:
-                    (new Vue()).$notification.error(error.response.data.message);
+                    alertify.error(error.response.data.message || 'Bad request.');
                     break
                 case 403:
-                    (new Vue()).$notification.error('没有权限！');
+                    alertify.error('没有权限！');
                     break;
                 default:
-                    alert('服务器出错，请稍后重试！')
+                    alertify.error('服务器出错，请稍后重试！')
             }
         }
         return Promise.reject(error.response) // 返回接口返回的错误信息

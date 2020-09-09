@@ -1,3 +1,6 @@
 .alertify-notifier .ajs-success {
     color: white;
 }
+.alertify-notifier .ajs-error {
+    color: white;
+}
