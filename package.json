@@ -5,7 +5,7 @@
   "private": true,
   "dependencies": {
     "alertifyjs": "^1.13.1",
-    "axios": "^0.20.0",
+    "axios": "^0.21.1",
     "vue-router": "^3.4.3",
     "vuetify": "^2.3.10"
   },
